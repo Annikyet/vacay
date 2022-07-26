@@ -31,6 +31,23 @@ namespace vacay.Services
             return found;
         }
 
+        // Can you extend methods...?
+        internal Flight AuthGet(int flightId, string userId)
+        {
+            System.Console.WriteLine("flightId: " + flightId.ToString());
+            System.Console.WriteLine("userId: " + userId);
+            Flight found = _repo.GetById(flightId);
+            if (found == null) // C# doesn't have automatic truthy/falsey
+            {
+                throw new Exception("Invalid ID");
+            }
+            if (found.CreatorId != userId)
+            {
+                throw new Exception("Nacho vacay!!!");
+            }
+            return found;
+        }
+
         internal Flight Update(Flight flightData)
         {
             Flight original = Get(flightData.Id);

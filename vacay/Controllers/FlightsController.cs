@@ -37,13 +37,17 @@ public class FlightsController : ControllerBase
   }
 
 
-  [HttpGet("{id}")]
-  // [Authorize]
-  public ActionResult<Flight> Get(int id)
+  [HttpGet("{flightId}")]
+  [Authorize]
+  public async Task<ActionResult<Flight>> Get(int flightId)
   {
+    System.Console.WriteLine("flightId: " + flightId.ToString());
+
     try
     {
-      Flight flight = _fs.Get(id); // async/await is automatic in Dapper, calls service
+      Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+
+      Flight flight = _fs.AuthGet(flightId, userInfo.Id); // async/await is automatic in Dapper, calls service
       return Ok(flight); // Ok is equivalent to a 200 OK HTTP code (I think)
     }
     catch (System.Exception e)
