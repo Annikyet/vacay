@@ -67,70 +67,17 @@ namespace vacay.Services
 
             _repo.Update(original);
             return original;
-            
         }
 
-
-
-
-//   id INT NOT NULL primary key AUTO_INCREMENT COMMENT 'primary key',
-//   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
-//   updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
-//   creatorId VARCHAR(255) NOT NULL COMMENT 'creator ID',
-//   type VARCHAR(255) NOT NULL COMMENT 'Type of vacation',
-//   destination VARCHAR(255) NOT NULL COMMENT 'Vacation destination',
-//   price INT NOT NULL COMMENT 'Price in cents',
-//   departingAirport VARCHAR(255) COMMENT 'ICAO Airport Code of Airport departed from',
-//   arrivingAirport VARCHAR(255) COMMENT 'ICAO airport code of the airport arriving at',
-//   flightNumber VARCHAR(255) COMMENT 'Airline flight number',
-//   aircraftModel VARCHAR(255) COMMENT 'Model of aircraft flown on',
-//   seatNumber VARCHAR(255) COMMENT 'Seat Number for your seat',
-//   seatClass VARCHAR(255) COMMENT 'Class of your ticket'
-
-
-
-    // internal Burger Edit(Burger burgerData)
-    // {
-    //   Burger original = Get(burgerData.Id);
-    //   if (original.CreatorId != burgerData.CreatorId)
-    //   {
-    //     throw new Exception("Invalid Access");
-    //   }
-    //   original.Name = burgerData.Name ?? original.Name;
-    //   original.Description = burgerData.Description ?? original.Description;
-    //   original.Price = burgerData.Price > 0 ? burgerData.Price : original.Price;
-
-    //   _repo.Edit(original);
-    //   return original;
-    // }
-
-
-
-    internal Flight Remove(int id, string userId)
-    {
-        Flight original = Get(id);
-        if (original.CreatorId != userId)
+        internal Flight Remove(int id, string userId)
         {
-            throw new Exception("Nacho vacay!!!");
+            Flight original = Get(id);
+            if (original.CreatorId != userId)
+            {
+                throw new Exception("Nacho vacay!!!");
+            }
+            _repo.Remove(id);
+            return original;
         }
-        _repo.Remove(id);
-        return original;
-    }
-
-
-
-
-
-    // internal Burger Delete(int id, string userId)
-    // {
-    //   Burger original = Get(id);
-    //   if (original.CreatorId != userId)
-    //   {
-    //     throw new Exception("Invalid Access");
-    //   }
-    //   _repo.Delete(id);
-    //   return original;
-    // }
-
     }
 }

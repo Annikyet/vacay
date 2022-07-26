@@ -36,7 +36,6 @@ public class FlightsController : ControllerBase
     }
   }
 
-
   [HttpGet("{flightId}")]
   [Authorize]
   public async Task<ActionResult<Flight>> Get(int flightId)
@@ -56,7 +55,6 @@ public class FlightsController : ControllerBase
     }
   }
 
-
   [HttpPut("{id}")]
   [Authorize]
   public async Task<ActionResult<Flight>> Update(int id, [FromBody] Flight flightData)
@@ -75,27 +73,6 @@ public class FlightsController : ControllerBase
     }
   }
 
-
-    // [HttpPut("{id}")]
-    // [Authorize]
-    // public async Task<ActionResult<Burger>> Edit(int id, [FromBody] Burger burgerData)
-    // {
-    //   try
-    //   {
-    //     Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-    //     burgerData.CreatorId = userInfo.Id;
-    //     burgerData.Id = id;
-    //     Burger update = _bs.Edit(burgerData);
-    //     // Manually handle the Populate (prevents creator: null)
-    //     update.UpdatedAt = new DateTime();
-    //     return Ok(update);
-    //   }
-    //   catch (Exception e)
-    //   {
-    //     return BadRequest(e.Message);
-    //   }
-    // }
-
     [HttpDelete("{id}")]
     [Authorize]
     public async Task<ActionResult<Flight>> Remove(int id)
@@ -111,19 +88,4 @@ public class FlightsController : ControllerBase
         return BadRequest(e.Message);
       }
     }
-
-
-    // public async Task<ActionResult<Burger>> Delete(int id)
-    // {
-    //   try
-    //   {
-    //     Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-    //     Burger deleted = _bs.Delete(id, userInfo.Id);
-    //     return Ok(deleted);
-    //   }
-    //   catch (Exception e)
-    //   {
-    //     return BadRequest(e.Message);
-    //   }
-    // }
 }
