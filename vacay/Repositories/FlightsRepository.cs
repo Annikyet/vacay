@@ -67,21 +67,6 @@ namespace vacay.Repositories
         }
 
 
-//   id INT NOT NULL primary key AUTO_INCREMENT COMMENT 'primary key',
-//   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
-//   updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
-//   creatorId VARCHAR(255) NOT NULL COMMENT 'creator ID',
-//   type VARCHAR(255) NOT NULL COMMENT 'Type of vacation',
-//   destination VARCHAR(255) NOT NULL COMMENT 'Vacation destination',
-//   price INT NOT NULL COMMENT 'Price in cents',
-//   departingAirport VARCHAR(255) COMMENT 'ICAO Airport Code of Airport departed from',
-//   arrivingAirport VARCHAR(255) COMMENT 'ICAO airport code of the airport arriving at',
-//   flightNumber VARCHAR(255) COMMENT 'Airline flight number',
-//   aircraftModel VARCHAR(255) COMMENT 'Model of aircraft flown on',
-//   seatNumber VARCHAR(255) COMMENT 'Seat Number for your seat',
-//   seatClass VARCHAR(255) COMMENT 'Class of your ticket'
-
-
 
         public Flight GetById(int id)
         {
@@ -93,8 +78,6 @@ namespace vacay.Repositories
             WHERE flights.id = @id"; // TODO, seriously this is bad... fix it.
             return _db.Query<Flight>(sql, new { id }).FirstOrDefault();
         }
-    }
-}
 
     // public Burger GetById(int id)
     // {
@@ -121,3 +104,67 @@ namespace vacay.Repositories
     // // firstordefault - only grab first one
     //   }, new { id }).FirstOrDefault();
     // }
+
+
+        public void Update(Flight original)
+        {
+            string sql = @"
+            UPDATE flights
+            SET
+              type = @Type,
+              destination = @Destination,
+              price = @Price,
+              departingAirport = @DepartingAirport,
+              arrivingAirport = @ArrivingAirport,
+              flightNumber = @FlightNumber,
+              aircraftModel = @AircraftModel,
+              seatNumber = @SeatNumber,
+              seatClass = @SeatClass
+            WHERE id = @Id;";
+            _db.Execute(sql, original);
+        }
+
+            // original.Type = flightData.Type ?? original.Type;
+            // original.Destination = flightData.Destination ?? original.Destination;
+            // original.Price = flightData.Price > 0 ? flightData.Price : original.Price;
+            // original.DepartingAirport = flightData.DepartingAirport ?? original.DepartingAirport;
+            // original.ArrivingAirport = flightData.ArrivingAirport ?? original.ArrivingAirport;
+            // original.FlightNumber = flightData.FlightNumber ?? original.FlightNumber;
+            // original.AircraftModel = flightData.AircraftModel ?? original.AircraftModel;
+            // original.SeatNumber = flightData.SeatNumber ?? original.SeatNumber;
+            // original.SeatClass = flightData.SeatClass ?? original.SeatClass;
+
+
+
+    // public void Edit(Burger original)
+    // {
+    //   string sql = @"
+    //   UPDATE burgers
+    //   SET
+    //     name = @Name,
+    //     description = @Description,
+    //     price = @Price
+    //   WHERE id = @Id;";
+    //   _db.Execute(sql, original);
+
+    // }
+
+
+    public void Remove(int id)
+    {
+        string sql = "DELETE FROM flights WHERE id = @id LIMIT 1";
+        _db.Execute(sql, new {id});
+    }
+
+
+
+
+
+
+    // public void Delete(int id)
+    // {
+    //   string sql = "DELETE FROM burgers WHERE id = @id LIMIT 1";
+    //   _db.Execute(sql, new { id });
+    // }
+    }
+}
